@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>I Reload Cell - Login</title>
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        /* Base styles */
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh; /* Set minimum height to 100% of viewport height */
+        }
+
+        header {
+            background-color: #333;
+            color: #fff;
+            padding: 10px 20px;
+            display: flex;
+            justify-content: space-between; /* Align items horizontally */
+            align-items: center; /* Align items vertically */
+        }
+
+        header .logo h1 {
+            margin: 0;
+            font-size: 24px;
+        }
+
+        nav ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        nav ul li {
+            display: inline;
+            margin-right: 10px;
+        }
+
+        nav ul li a {
+            color: #fff;
+            text-decoration: none;
+        }
+
+        /* Hamburger menu styles */
+        .menu-icon {
+            display: none;
+            font-size: 24px;
+            cursor: pointer;
+        }
+
+
+        /* Card styles */
+        .card {
+            background-color: #fff;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            padding: 20px ;
+            margin: 50px auto;
+            max-width: 500px; /* Adjusted maximum width */
+        }
+
+        /* Form styles */
+        form {
+            max-width: 100%;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+
+        input[type="text"],
+        input[type="email"],
+        input[type="tel"],
+        input[type="password"] {
+            width: calc(100% - 10px);
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        button[type="submit"] {
+            background-color: #333;
+            color: #fff;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        button[type="submit"]:hover {
+            background-color: #555;
+        }
+
+        /* Footer styles */
+        footer {
+            background-color: #333;
+            color: #fff;
+            text-align: center;
+            padding: 10px 0;
+            width: 100%;
+            margin-top: auto; /* Set margin-top to auto to push footer to the bottom */
+        }
+
+        /* Flash message styles */
+        .flash-message {
+            padding: 10px;
+            margin-bottom: 20px;
+            border-radius: 5px;
+        }
+
+        .flash-success {
+            background-color: #28a745;
+            color: #fff;
+        }
+
+        .flash-error {
+            background-color: #dc3545;
+            color: #fff;
+        }
+
+        /* Media query for mobile */
+        @media (max-width: 768px) {
+            nav ul {
+                display: none;
+            }
+
+            .menu-icon {
+                display: block;
+                margin-right: 10px;
+            }
+
+            .menu-items {
+                display: none;
+                text-align: left;
+            }
+
+            .menu-items.active {
+                display: block;
+            }
+
+            header .logo {
+                display: none; /* Hide logo on mobile */
+            }
+
+            .card {
+                margin: 50px auto;
+            }
+        }
+        .flash-message {
+        display: none;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="logo">
+            <h1>I Reload Cell</h1>
+        </div>
+        <div class="menu-icon" onclick="toggleMenu()">☰</div>
+        <nav>
+            <ul class="menu-items" id="menuItems">
+                <li><a href="/">Home</a></li>
+                <li><a href="/login">Masuk</a></li>
+                <li><a href="/register">Daftar</a></li>
+                <li><a href="/about">About</a></li>
+                <li><a href="/contact">Contact</a></li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        <div class="card">
+            <h1>Login</h1>
+            <form action="/login" method="POST" id="loginForm">
+                <div class="form-group">
+                    <label for="username">Username</label>
+                    <input type="text" id="username" name="username" placeholder="Username" required>
+                </div>
+                <div class="form-group">
+                    <label for="password">Password</label>
+                    <input type="password" id="password" name="password" placeholder="Password" required>
+                </div>
+                <button type="submit">Login</button>
+            </form>
+        </div>
+    </main>
+    <footer class="fixed-bottom">
+        <p>&copy; 2024 I Reload Cell. All rights reserved.</p>
+    </footer>
+    <script>
+        function toggleMenu() {
+            var menuItems = document.getElementById("menuItems");
+            menuItems.classList.toggle("active");
+        }
+        document.addEventListener('DOMContentLoaded', function() {
+        // Temukan pesan flash yang tersimpan di session storage
+        var successMsg = sessionStorage.getItem('success_msg');
+        var errorMsg = sessionStorage.getItem('error_msg');
+
+        // Jika ada pesan flash sukses, tampilkan popup alert
+        if (successMsg) {
+            Swal.fire({
+                icon: 'success',
+                title: 'Success',
+                text: successMsg
+            });
+            sessionStorage.removeItem('success_msg'); // Hapus pesan dari session storage setelah ditampilkan
+        }
+
+        // Jika ada pesan flash error, tampilkan popup alert
+        if (errorMsg) {
+            Swal.fire({
+                icon: 'error',
+                title: 'Error',
+                text: errorMsg
+            });
+            sessionStorage.removeItem('error_msg'); // Hapus pesan dari session storage setelah ditampilkan
+        }
+    });
+
+    </script>
+</body>
+</html>
